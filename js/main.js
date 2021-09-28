@@ -21,8 +21,6 @@ const getCustomRandom = function(from, to, numAfterDecimal) {
   return (from >= 0 && to > from && numAfterDecimal >= 0) ? (Math.random() * (to - from) + from).toFixed(numAfterDecimal) : 'Проверьте правильность введенных значений. Условия: \n - Диапазон должен не содержать отрицательных чисел \n - Число "до" должно быть больше числа "от" \n - Значение количества чисел после запятой не отрицательное';
 };
 
-// etCustomRandom(1.2, 1.217, -3);
-console.log(getCustomRandom(1.2, 1.217, 0));
+getRandomIntInclusive(1.2, 1.3);
+getCustomRandom(1.2, 1.217, -3);
 
-// getRandomIntInclusive(1.2, 1.3);
-console.log(getRandomIntInclusive(1, 3.4));
