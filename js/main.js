@@ -56,11 +56,11 @@ function generatePhotoId () {
 
 // Мне на самом деле не очень нравится решение с созданием промежуточного массива. Подозреваю, что есть более рациональное, но я так и не нашел.
 function generateAppartmentFeatures () {
-  let generateNewArrayLength = getRandomIntInclusive(0, FEATURES.length);
-  let interimArray = FEATURES.slice();
-  let appartmentFeatures = []
+  const generateNewArrayLength = getRandomIntInclusive(0, FEATURES.length);
+  const interimArray = FEATURES.slice();
+  const appartmentFeatures = [];
   for (let i = 0; i < generateNewArrayLength; i++) {
-    generatedRandomItem = getRandomIntInclusive(0, interimArray.length-1)
+    const generatedRandomItem = getRandomIntInclusive(0, interimArray.length-1);
     appartmentFeatures.push(interimArray[generatedRandomItem]);
     interimArray.splice(generatedRandomItem, 1)
   }
@@ -68,8 +68,8 @@ function generateAppartmentFeatures () {
 }
 
 function generateGallary () {
-  let generateNewArrayLength = getRandomIntInclusive(0, PHOTOS .length);
-  let gallary = [];
+  const generateNewArrayLength = getRandomIntInclusive(0, PHOTOS .length);
+  const gallary = [];
   for (let i = 0; i < generateNewArrayLength; i++) {
     gallary.push(PHOTOS[i]);
   }
