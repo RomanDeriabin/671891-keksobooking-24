@@ -62,7 +62,7 @@ function generateAppartmentFeatures () {
   for (let i = 0; i < generateNewArrayLength; i++) {
     const generatedRandomItem = getRandomIntInclusive(0, interimArray.length-1);
     appartmentFeatures.push(interimArray[generatedRandomItem]);
-    interimArray.splice(generatedRandomItem, 1)
+    interimArray.splice(generatedRandomItem, 1);
   }
   return appartmentFeatures;
 }
@@ -76,9 +76,9 @@ function generateGallary () {
   return gallary;
 }
 
-let generateAppartmentAd = function () {
-  let generatedLat = getRandomFractionalNumber(35.65000, 35.70000, 5);
-  let generatedLng = getRandomFractionalNumber(139.70000, 139.80000, 5);
+const generateAppartmentAd = function () {
+  const generatedLat = getRandomFractionalNumber(35.65000, 35.70000, 5);
+  const generatedLng = getRandomFractionalNumber(139.70000, 139.80000, 5);
   return {
     autor: {
       avatar: `img/avatars/user${generatePhotoId()}.png`,
@@ -102,4 +102,6 @@ let generateAppartmentAd = function () {
     },
   };
 };
+
+generateAppartmentAd();
 
