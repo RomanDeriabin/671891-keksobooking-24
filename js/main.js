@@ -23,6 +23,7 @@ const getRandomIntInclusive = function(from, to){
   }
 };
 
+
 const getRandomFractionalNumber = function(from, to, numAfterDecimal) {
   if (from < 0) {
     throw new Error('Диапазон не должен содержать отрицательных чисел');
@@ -38,6 +39,67 @@ const getRandomFractionalNumber = function(from, to, numAfterDecimal) {
   }
 };
 
-getRandomIntInclusive(1.2, 1.3);
-getRandomFractionalNumber(1.2, 1.217, -3);
+const TYPE_OF_APPARTEMENT = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const CHECK_IN_TIME = ['12:00', '13:00','14:00'];
+const CHECK_OUT_TIME = ['12:00', '13:00','14:00'];
+const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const PHOTOS = [
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
+];
+
+function generatePhotoId () {
+  let num = getRandomIntInclusive(1, 10).toString();
+  return (num < 10) ? num = 0 + num : num;
+}
+
+// Мне на самом деле не очень нравится решение с созданием промежуточного массива. Подозреваю, что есть более рациональное, но я так и не нашел.
+function generateAppartmentFeatures () {
+  let generateNewArrayLength = getRandomIntInclusive(0, FEATURES.length);
+  let interimArray = FEATURES.slice();
+  let appartmentFeatures = []
+  for (let i = 0; i < generateNewArrayLength; i++) {
+    generatedRandomItem = getRandomIntInclusive(0, interimArray.length-1)
+    appartmentFeatures.push(interimArray[generatedRandomItem]);
+    interimArray.splice(generatedRandomItem, 1)
+  }
+  return appartmentFeatures;
+}
+
+function generateGallary () {
+  let generateNewArrayLength = getRandomIntInclusive(0, PHOTOS .length);
+  let gallary = [];
+  for (let i = 0; i < generateNewArrayLength; i++) {
+    gallary.push(PHOTOS[i]);
+  }
+  return gallary;
+}
+
+let generateAppartmentAd = function () {
+  let generatedLat = getRandomFractionalNumber(35.65000, 35.70000, 5);
+  let generatedLng = getRandomFractionalNumber(139.70000, 139.80000, 5);
+  return {
+    autor: {
+      avatar: `img/avatars/user${generatePhotoId()}.png`,
+    },
+    offer: {
+      title: 'Лучший выбор',
+      address: generatedLat.toString() + ', ' + generatedLng.toString(),
+      price: getRandomIntInclusive(1, 2000000),
+      type: TYPE_OF_APPARTEMENT[getRandomIntInclusive(0, TYPE_OF_APPARTEMENT.length - 1)],
+      rooms: getRandomIntInclusive(1, 10),
+      guests: getRandomIntInclusive(1, 20),
+      checkin: CHECK_IN_TIME[getRandomIntInclusive(0 , CHECK_IN_TIME.length - 1)],
+      checkout: CHECK_OUT_TIME[getRandomIntInclusive(0, CHECK_OUT_TIME.length - 1)],
+      features: generateAppartmentFeatures(),
+      description: 'Это шикарная квартира',
+      photos: generateGallary(),
+    },
+    location: {
+      lat: generatedLat,
+      lng: generatedLng,
+    },
+  };
+};
 
