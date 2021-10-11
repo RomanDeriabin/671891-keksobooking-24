@@ -49,12 +49,13 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
+const DESCRIPTION = ['В историческом районе города', 'Живописная природа', 'Большая территория', 'В 15 минутах от моря'];
+
 function generatePhotoId () {
   let num = getRandomIntInclusive(1, 10).toString();
   return (num < 10) ? num = 0 + num : num;
 }
 
-// Мне на самом деле не очень нравится решение с созданием промежуточного массива. Подозреваю, что есть более рациональное, но я так и не нашел.
 function generateAppartmentFeatures () {
   const generateNewArrayLength = getRandomIntInclusive(0, FEATURES.length);
   const interimArray = FEATURES.slice();
@@ -68,7 +69,7 @@ function generateAppartmentFeatures () {
 }
 
 function generateGallary () {
-  const generateNewArrayLength = getRandomIntInclusive(0, PHOTOS .length);
+  const generateNewArrayLength = getRandomIntInclusive(0, PHOTOS.length);
   const gallary = [];
   for (let index = 0; index < generateNewArrayLength; index++) {
     gallary.push(PHOTOS[index]);
@@ -76,7 +77,7 @@ function generateGallary () {
   return gallary;
 }
 
-const generateAppartmentAd = function () {
+const getRandomAppartmentsData = function () {
   const generatedLat = getRandomFractionalNumber(35.65000, 35.70000, 5);
   const generatedLng = getRandomFractionalNumber(139.70000, 139.80000, 5);
   return {
@@ -90,10 +91,10 @@ const generateAppartmentAd = function () {
       type: TYPE_OF_APPARTEMENT[getRandomIntInclusive(0, TYPE_OF_APPARTEMENT.length - 1)],
       rooms: getRandomIntInclusive(1, 10),
       guests: getRandomIntInclusive(1, 20),
-      checkin: CHECK_IN_TIME[getRandomIntInclusive(0 , CHECK_IN_TIME.length - 1)],
+      checkin: CHECK_IN_TIME[getRandomIntInclusive(0, CHECK_IN_TIME.length - 1)],
       checkout: CHECK_OUT_TIME[getRandomIntInclusive(0, CHECK_OUT_TIME.length - 1)],
       features: generateAppartmentFeatures(),
-      description: 'Это шикарная квартира',
+      description: DESCRIPTION[getRandomIntInclusive(0, DESCRIPTION.length-1)],
       photos: generateGallary(),
     },
     location: {
@@ -103,5 +104,14 @@ const generateAppartmentAd = function () {
   };
 };
 
-generateAppartmentAd();
+
+const generateAppartmentData = function() {
+  const appartmentsArray = [];
+  for (let it = 0; it < 10; it++) {
+    appartmentsArray.push(getRandomAppartmentsData());
+  }
+  return appartmentsArray;
+};
+
+generateAppartmentData();
 
