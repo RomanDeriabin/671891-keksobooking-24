@@ -59,7 +59,7 @@ function generateAppartmentFeatures () {
   const generateNewArrayLength = getRandomIntInclusive(0, FEATURES.length);
   const interimArray = FEATURES.slice();
   const appartmentFeatures = [];
-  for (let i = 0; i < generateNewArrayLength; i++) {
+  for (let index = 0; index < generateNewArrayLength; index++) {
     const generatedRandomItem = getRandomIntInclusive(0, interimArray.length-1);
     appartmentFeatures.push(interimArray[generatedRandomItem]);
     interimArray.splice(generatedRandomItem, 1);
@@ -70,8 +70,8 @@ function generateAppartmentFeatures () {
 function generateGallary () {
   const generateNewArrayLength = getRandomIntInclusive(0, PHOTOS .length);
   const gallary = [];
-  for (let i = 0; i < generateNewArrayLength; i++) {
-    gallary.push(PHOTOS[i]);
+  for (let index = 0; index < generateNewArrayLength; index++) {
+    gallary.push(PHOTOS[index]);
   }
   return gallary;
 }
@@ -85,7 +85,7 @@ const generateAppartmentAd = function () {
     },
     offer: {
       title: 'Лучший выбор',
-      address: generatedLat.toString() + ', ' + generatedLng.toString(),
+      address: `${generatedLat.toString()}, ${generatedLng.toString()}`,
       price: getRandomIntInclusive(1, 2000000),
       type: TYPE_OF_APPARTEMENT[getRandomIntInclusive(0, TYPE_OF_APPARTEMENT.length - 1)],
       rooms: getRandomIntInclusive(1, 10),
