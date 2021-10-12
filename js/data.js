@@ -1,3 +1,5 @@
+'use sctrict';
+
 import {getRandomIntInclusive, getRandomFractionalNumber} from './utils.js';
 
 const TYPE_OF_APPARTEMENT = ['palace', 'flat', 'house', 'bungalow', 'hotel'];

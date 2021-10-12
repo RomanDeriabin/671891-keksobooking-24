@@ -1,4 +1,5 @@
-import {generateAppartmentData} from './data.js';
+'use sctrict';
 
+import {generateAppartmentData} from './data.js';
 generateAppartmentData();
 

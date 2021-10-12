@@ -1,3 +1,4 @@
+'use sctrict';
 
 const checkRemainderOfDivision = function (number) {
   return (number % 1 !== 0);
