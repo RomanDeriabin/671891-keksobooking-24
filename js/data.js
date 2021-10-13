@@ -1,18 +1,7 @@
 'use sctrict';
 
 import {getRandomIntInclusive, getRandomFractionalNumber} from './utils.js';
-
-const TYPE_OF_APPARTEMENT = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
-const CHECK_IN_TIME = ['12:00', '13:00','14:00'];
-const CHECK_OUT_TIME = ['12:00', '13:00','14:00'];
-const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const PHOTOS = [
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
-];
-
-const DESCRIPTION = ['В историческом районе города', 'Живописная природа', 'Большая территория', 'В 15 минутах от моря'];
+import {TYPE_OF_APPARTEMENT, CHECK_IN_TIME, CHECK_OUT_TIME, FEATURES, PHOTOS, DESCRIPTION} from './constants.js';
 
 function generatePhotoId () {
   let num = getRandomIntInclusive(1, 10).toString();
@@ -61,16 +50,21 @@ function createRandomOffer(lat, lng) {
   };
 }
 
+function generateLocation() {
+  const lat = getRandomFractionalNumber(35.65000, 35.70000, 5);
+  const lng = getRandomFractionalNumber(139.70000, 139.80000, 5);
+  return {
+    lat,
+    lng,
+  };
+}
+
 const getRandomAppartmentsData = function () {
-  const generatedLat = getRandomFractionalNumber(35.65000, 35.70000, 5);
-  const generatedLng = getRandomFractionalNumber(139.70000, 139.80000, 5);
+  const generatedLocation = generateLocation();
   return {
     autor: createRandomAutor(),
-    offer: createRandomOffer(generatedLat, generatedLng),
-    location: {
-      lat: generatedLat,
-      lng: generatedLng,
-    },
+    offer: createRandomOffer(generatedLocation.lat, generatedLocation.lng),
+    location: generatedLocation,
   };
 };
 
