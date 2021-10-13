@@ -40,26 +40,33 @@ function generateGallary () {
   return gallary;
 }
 
+function createRandomAutor() {
+  return {
+    avatar: `img/avatars/user${generatePhotoId()}.png`,
+  };
+}
+function createRandomOffer(lat, lng) {
+  return {
+    title: 'Лучший выбор',
+    address: `${lat.toString()}, ${lng.toString()}`,
+    price: getRandomIntInclusive(1, 2000000),
+    type: TYPE_OF_APPARTEMENT[getRandomIntInclusive(0, TYPE_OF_APPARTEMENT.length - 1)],
+    rooms: getRandomIntInclusive(1, 10),
+    guests: getRandomIntInclusive(1, 20),
+    checkin: CHECK_IN_TIME[getRandomIntInclusive(0, CHECK_IN_TIME.length - 1)],
+    checkout: CHECK_OUT_TIME[getRandomIntInclusive(0, CHECK_OUT_TIME.length - 1)],
+    features: generateAppartmentFeatures(),
+    description: DESCRIPTION[getRandomIntInclusive(0, DESCRIPTION.length-1)],
+    photos: generateGallary(),
+  };
+}
+
 const getRandomAppartmentsData = function () {
   const generatedLat = getRandomFractionalNumber(35.65000, 35.70000, 5);
   const generatedLng = getRandomFractionalNumber(139.70000, 139.80000, 5);
   return {
-    autor: {
-      avatar: `img/avatars/user${generatePhotoId()}.png`,
-    },
-    offer: {
-      title: 'Лучший выбор',
-      address: `${generatedLat.toString()}, ${generatedLng.toString()}`,
-      price: getRandomIntInclusive(1, 2000000),
-      type: TYPE_OF_APPARTEMENT[getRandomIntInclusive(0, TYPE_OF_APPARTEMENT.length - 1)],
-      rooms: getRandomIntInclusive(1, 10),
-      guests: getRandomIntInclusive(1, 20),
-      checkin: CHECK_IN_TIME[getRandomIntInclusive(0, CHECK_IN_TIME.length - 1)],
-      checkout: CHECK_OUT_TIME[getRandomIntInclusive(0, CHECK_OUT_TIME.length - 1)],
-      features: generateAppartmentFeatures(),
-      description: DESCRIPTION[getRandomIntInclusive(0, DESCRIPTION.length-1)],
-      photos: generateGallary(),
-    },
+    autor: createRandomAutor(),
+    offer: createRandomOffer(generatedLat, generatedLng),
     location: {
       lat: generatedLat,
       lng: generatedLng,
