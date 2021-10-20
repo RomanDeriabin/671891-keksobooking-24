@@ -2,7 +2,7 @@
 
 import {generateAppartmentData} from './data.js';
 
-const a = generateAppartmentData();
+const arrayOfAppartments = generateAppartmentData();
 const adsTemplate = document.querySelector('#card').content;
 const item = adsTemplate.querySelector('.popup');
 const map = document.querySelector('.map');
@@ -44,7 +44,7 @@ const renderAds = function () {
   adsItemAvatar.src = a[0]['autor']['avatar'];
   adsItemTitle.textContent = a[0]['offer']['title'];
   adsItemAddress.textContent = a[0]['offer']['address'];
-  adsItemPrice.textContent = `${a[0]['offer']['price']} р / ночь `; // доделать со спаном
+  adsItemPrice.textContent = `${a[0]['offer']['price']} р / ночь `;
   typeDescr();
   adsItemGuests.textContent = `${a[0]['offer']['rooms']} комнаты для ${a[0]['offer']['guests']} гостей`;
   adsItemTime.textContent = `Заезд после ${a[0]['offer']['checkin']}, выезд до ${a[0]['offer']['checkout']}`;
