@@ -1,5 +1,6 @@
 'use sctrict';
 
-import {generateAppartmentData} from './data.js';
-generateAppartmentData();
+import {renderAds} from './render.js';
+
+renderAds();
 

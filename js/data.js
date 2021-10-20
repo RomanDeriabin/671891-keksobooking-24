@@ -70,7 +70,7 @@ const getRandomAppartmentsData = function () {
 
 const generateAppartmentData = function() {
   const appartmentsArray = [];
-  for (let it = 0; it < 10; it++) {
+  for (let it = 0; it < 1; it++) {
     appartmentsArray.push(getRandomAppartmentsData());
   }
   return appartmentsArray;
