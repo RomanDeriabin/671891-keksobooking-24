@@ -19,7 +19,7 @@ const adsItemDescr = adsItem.querySelector('.popup__description');
 const adsItemPhoto = adsItem.querySelector('.popup__photos');
 
 const typeDescr = () => {
-  switch (a[0]['offer']['type']) {
+  switch (arrayOfAppartments[0]['offer']['type']) {
     case ('palace'):
       adsItemType.textContent = 'Дворец';
       break;
@@ -41,25 +41,25 @@ const typeDescr = () => {
 };
 
 const renderAds = function () {
-  adsItemAvatar.src = a[0]['autor']['avatar'];
-  adsItemTitle.textContent = a[0]['offer']['title'];
-  adsItemAddress.textContent = a[0]['offer']['address'];
-  adsItemPrice.textContent = `${a[0]['offer']['price']} р / ночь `;
+  adsItemAvatar.src = arrayOfAppartments[0]['autor']['avatar'];
+  adsItemTitle.textContent = arrayOfAppartments[0]['offer']['title'];
+  adsItemAddress.textContent = arrayOfAppartments[0]['offer']['address'];
+  adsItemPrice.textContent = `${arrayOfAppartments[0]['offer']['price']} р / ночь `;
   typeDescr();
-  adsItemGuests.textContent = `${a[0]['offer']['rooms']} комнаты для ${a[0]['offer']['guests']} гостей`;
-  adsItemTime.textContent = `Заезд после ${a[0]['offer']['checkin']}, выезд до ${a[0]['offer']['checkout']}`;
+  adsItemGuests.textContent = `${arrayOfAppartments[0]['offer']['rooms']} комнаты для ${arrayOfAppartments[0]['offer']['guests']} гостей`;
+  adsItemTime.textContent = `Заезд после ${arrayOfAppartments[0]['offer']['checkin']}, выезд до ${arrayOfAppartments[0]['offer']['checkout']}`;
   adsItemFeaturesList.forEach((featureListItem) => {
-    const isNecessary = a[0]['offer']['features'].some((feature) => featureListItem.classList.contains(`popup__feature--${feature}`));
+    const isNecessary = arrayOfAppartments[0]['offer']['features'].some((feature) => featureListItem.classList.contains(`popup__feature--${feature}`));
     if (!isNecessary) {
       featureListItem.remove();
     }
   });
-  adsItemDescr.textContent = a[0]['offer']['description'];
+  adsItemDescr.textContent = arrayOfAppartments[0]['offer']['description'];
   adsItemPhoto.innerHTML = '';
-  for (let i = 0; i < a[0]['offer']['photos'].length; i++) {
+  for (let i = 0; i < arrayOfAppartments[0]['offer']['photos'].length; i++) {
     const imgContainer = document.createElement('img');
     imgContainer.classList.add('popup__photo');
-    imgContainer.src = a[0]['offer']['photos'][i];
+    imgContainer.src = arrayOfAppartments[0]['offer']['photos'][i];
     imgContainer.style.width = '45px';
     imgContainer.style.height = '40px';
     adsItemPhoto.appendChild(imgContainer);
