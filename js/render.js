@@ -56,10 +56,10 @@ const renderAds = function () {
   });
   adsItemDescr.textContent = arrayOfAppartments[0]['offer']['description'];
   adsItemPhoto.innerHTML = '';
-  for (let i = 0; i < arrayOfAppartments[0]['offer']['photos'].length; i++) {
+  for (let it = 0; it < arrayOfAppartments[0]['offer']['photos'].length; it++) {
     const imgContainer = document.createElement('img');
     imgContainer.classList.add('popup__photo');
-    imgContainer.src = arrayOfAppartments[0]['offer']['photos'][i];
+    imgContainer.src = arrayOfAppartments[0]['offer']['photos'][it];
     imgContainer.style.width = '45px';
     imgContainer.style.height = '40px';
     adsItemPhoto.appendChild(imgContainer);
