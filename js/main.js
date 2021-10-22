@@ -3,4 +3,3 @@
 import {renderAds} from './render.js';
 
 renderAds();
-
