@@ -1,24 +1,41 @@
 'use sctrict';
 
 import {generateAppartmentData} from './data.js';
+import { getTemplateNode, getNodesFromTempate } from './utils.js';
 
 const arrayOfAppartments = generateAppartmentData();
-
 const map = document.querySelector('#map-canvas');
+const card = getTemplateNode('#card', '.popup');
 
-const cardTemplate = document.querySelector('#card').content;
-const cardContent = cardTemplate.querySelector('.popup');
-const card = cardContent.cloneNode(true);
+const adsCardData = {
+  avatarSrc: arrayOfAppartments[0]['autor']['avatar'],
+  titleText: arrayOfAppartments[0]['offer']['title'],
+  addressText: arrayOfAppartments[0]['offer']['address'],
+  price: `${arrayOfAppartments[0]['offer']['price']} р / ночь `,
+  type: arrayOfAppartments[0]['offer']['type'],
+  guests: `${arrayOfAppartments[0]['offer']['rooms']} комнаты для ${arrayOfAppartments[0]['offer']['guests']} гостей`,
+  checkinCheckout: `Заезд после ${arrayOfAppartments[0]['offer']['checkin']}, выезд до ${arrayOfAppartments[0]['offer']['checkout']}`,
+  features: arrayOfAppartments[0]['offer']['features'],
+  descriptionText: arrayOfAppartments[0]['offer']['description'],
+  photos: arrayOfAppartments[0]['offer']['photos'],
+};
 
-const makeElementFromTemplate = function (tagName) {
-  const element = card.querySelector(tagName);
-  return element;
+const adsCardSelectors = {
+  avatar: '.popup__avatar',
+  title: '.popup__title',
+  address: '.popup__text--address',
+  price: '.popup__text--price',
+  type: '.popup__type',
+  guests: '.popup__text--capacity',
+  time: '.popup__text--time',
+  featureList: '.popup__features',
+  description: '.popup__description',
+  photoList: '.popup__photos',
 };
 
 const addPropery = function (element, value) {
   const propertyValue = value;
   if (!propertyValue) {
-    console(!!propertyValue);
     element.classList.add('visually-hidden');
   }
   return propertyValue;
@@ -47,60 +64,45 @@ const typeDescr = (type) => {
 };
 
 const renderAds = function () {
-  const avatar = makeElementFromTemplate('.popup__avatar');
-  avatar.src = addPropery(avatar, arrayOfAppartments[0]['autor']['avatar']);
+  const nodes = getNodesFromTempate(card, adsCardSelectors);
 
-  const title = makeElementFromTemplate('.popup__title');
-  title.textContent = addPropery(title, arrayOfAppartments[0]['offer']['title']);
+  nodes['avatar'].src = addPropery(nodes['avatar'], adsCardData.avatarSrc);
+  nodes['title'].textContent = addPropery(nodes['title'], adsCardData.titleText);
+  nodes['address'].textContent = addPropery(nodes['address'], arrayOfAppartments[0]['offer']['address']);
+  nodes['price'].textContent = addPropery(nodes['price'], `${arrayOfAppartments[0]['offer']['price']} р / ночь `);
+  typeDescr(nodes['type']);
+  nodes['guests'].textContent = addPropery(nodes['guests'], `${arrayOfAppartments[0]['offer']['rooms']} комнаты для ${arrayOfAppartments[0]['offer']['guests']} гостей`);
+  nodes['time'].textContent = addPropery(nodes['time'], `Заезд после ${arrayOfAppartments[0]['offer']['checkin']}, выезд до ${arrayOfAppartments[0]['offer']['checkout']}`);
 
-  const address = makeElementFromTemplate('.popup__text--address');
-  address.textContent = addPropery(address, arrayOfAppartments[0]['offer']['address']);
-
-  const price = makeElementFromTemplate('.popup__text--price');
-  price.textContent = addPropery(price, `${arrayOfAppartments[0]['offer']['price']} р / ночь `);
-
-  const type = makeElementFromTemplate('.popup__type');
-  typeDescr(type);
-
-  const guests = makeElementFromTemplate('.popup__text--capacity');
-  guests.textContent = addPropery(guests, `${arrayOfAppartments[0]['offer']['rooms']} комнаты для ${arrayOfAppartments[0]['offer']['guests']} гостей`);
-
-  const time = makeElementFromTemplate('.popup__text--time');
-  time.textContent = addPropery(time, `Заезд после ${arrayOfAppartments[0]['offer']['checkin']}, выезд до ${arrayOfAppartments[0]['offer']['checkout']}`);
-
-  const featureList = card.querySelector('.popup__features');
-  const features = featureList.children;
-  const featuresList = featureList.querySelectorAll('.popup__feature');
-  featuresList.forEach((featureListItem) => {
+  const featureList = nodes['featureList'];
+  const features = featureList.querySelectorAll('.popup__feature');
+  features.forEach((featureListItem) => {
     const isNecessary = arrayOfAppartments[0]['offer']['features'].some((feature) => featureListItem.classList.contains(`popup__feature--${feature}`));
     if (!isNecessary) {
       featureListItem.remove();
     }
-    if (features.length === 0) {
+    if (featureList.children.length === 0) {
       featureList.classList.add('visually-hidden');
     }
   });
 
-  const descr = makeElementFromTemplate('.popup__description');
-  descr.textContent = addPropery(descr, arrayOfAppartments[0]['offer']['description']);
+  nodes['description'].textContent = addPropery(nodes['description'], arrayOfAppartments[0]['offer']['description']);
 
-  const photo = makeElementFromTemplate('.popup__photos');
-  const photos = photo.children;
-  photo.innerHTML = '';
+  const photoList = nodes['photoList'];
+  photoList.innerHTML = '';
   for (let i = 0; i < arrayOfAppartments[0]['offer']['photos'].length; i++) {
     const imgContainer = document.createElement('img');
     imgContainer.classList.add('popup__photo');
     imgContainer.src = arrayOfAppartments[0]['offer']['photos'][i];
     imgContainer.style.width = '45px';
     imgContainer.style.height = '40px';
-    photo.appendChild(imgContainer);
+    photoList.appendChild(imgContainer);
   }
-  if (photos.length === 0) {
-    photo.classList.add('visually-hidden');
+  if (photoList.children.length === 0) {
+    photoList.classList.add('visually-hidden');
   }
   map.appendChild(card);
 
 };
-
 
 export {renderAds};
