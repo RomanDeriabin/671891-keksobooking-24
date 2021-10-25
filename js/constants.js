@@ -10,6 +10,6 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
-const DESCRIPTION = ['В историческом районе города', 'Живописная природа', 'Большая территория', 'В 15 минутах от моря'];
+const DESCRIPTION = ['В историческом районе города', 'Живописная природа', 'Большая территория', 'В 15 минутах от моря', ''];
 
 export {TYPE_OF_APPARTEMENT, CHECK_IN_TIME, CHECK_OUT_TIME, FEATURES, PHOTOS, DESCRIPTION} ;
