@@ -41,4 +41,28 @@ const getRandomFractionalNumber = function(from, to, numAfterDecimal) {
   }
 };
 
-export {getRandomIntInclusive, getRandomFractionalNumber};
+const getTemplateNode = function (templateTag, contentTag) {
+  const templateNode = document.querySelector(templateTag).content;
+  const contentNode = templateNode.querySelector(contentTag);
+  const clonedNode = contentNode.cloneNode(true);
+  return clonedNode;
+};
+
+const checkNodeAvailable = (template, tagName) => {
+  const element = template.querySelector(tagName);
+  if (!element) {
+    throw new Error (`${tagName} element not found`);
+  }
+  return element;
+};
+
+const getNodesFromTempate = function(template, elements) {
+  const nodes = {};
+  for (const key in elements) {
+    nodes[key] = checkNodeAvailable(template, elements[key]); // нужно отвязать от конкретного объекта, передав параметр
+  }
+  return nodes;
+};
+
+
+export {getRandomIntInclusive, getRandomFractionalNumber, getTemplateNode, checkNodeAvailable, getNodesFromTempate};
