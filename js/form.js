@@ -12,7 +12,7 @@ const disabled = function (form, classMask, disabledStatus) {
     element[key]('disabled', true);
   });
   if (disabledStatus) {
-    // form.classList.toggle(`${classMask}--disabled`);
+    form.classList.toggle(`${classMask}--disabled`);
   }
 };
 
