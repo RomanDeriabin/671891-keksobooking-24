@@ -12,4 +12,4 @@ const arrayOfAppartments = generateAppartmentData(dataCount);
 const [firstElement] = arrayOfAppartments;
 
 renderAds(firstElement, map);
-disabledPage(false);
+disabledPage(true);

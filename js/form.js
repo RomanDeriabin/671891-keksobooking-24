@@ -1,30 +1,33 @@
 'use sctrict';
 
-const createAdsFormClass = 'ad-form';
-const mapFormClass  = 'map__filters';
+const formsClass = {
+  createAdsFormClass: 'ad-form',
+  mapFormClass: 'map__filters',
+};
 
-const disableda = function (form, classMask, disabledStatus) {
-  if (disabledStatus) {
-    form.classList.add(`${classMask}--disabled`);
-    const fieldsets = form.querySelectorAll('fieldset');
-    [...fieldsets].forEach((element) => {
+const disabled = function (form, classMask, disabledStatus) {
+  const key = disabledStatus ? 'setAttribute' : 'removeAttribute';
+  const fieldsets = form.querySelectorAll('fieldset');
+  const setfields = form.children;
+  [...setfields].some((element) => {
+    const tagName = element.tagName;
+    if (tagName === 'SELECT') {
       element.setAttribute('disabled', true);
-    });
-  }
-  else {
-    form.classList.remove(`${classMask}--disabled`);
-    const fieldsets = form.querySelectorAll('fieldset');
-    [...fieldsets].forEach((element) => {
-      element.removeAttribute('disabled');
-    });
+    }
+  });
+  [...fieldsets].forEach((element) => {
+    element[key]('disabled', true);
+  });
+  if (disabledStatus) {
+    form.classList.toggle(`${classMask}--disabled`);
   }
 };
 
 const disabledPage = function(disabledStatus) {
-  const createAdsForm = document.querySelector(`.${createAdsFormClass}`);
-  const mapForm = document.querySelector(`.${mapFormClass}`);
-  disableda(createAdsForm,createAdsFormClass, disabledStatus);
-  disableda(mapForm, mapFormClass, disabledStatus);
+  const createAdsForm = document.querySelector(`.${formsClass.createAdsFormClass}`);
+  const mapForm = document.querySelector(`.${formsClass.mapFormClass}`);
+  disabled(createAdsForm,formsClass.createAdsFormClass, disabledStatus);
+  disabled(mapForm, formsClass.mapFormClass, disabledStatus);
 };
 
 export {disabledPage};
