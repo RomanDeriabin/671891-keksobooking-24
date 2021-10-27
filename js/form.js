@@ -12,7 +12,7 @@ const disabled = function (form, classMask, disabledStatus) {
   [...setfields].some((element) => {
     const tagName = element.tagName;
     if (tagName === 'SELECT') {
-      element.setAttribute('disabled', true);
+      element[key]('disabled', true);
     }
   });
   [...fieldsets].forEach((element) => {
@@ -23,11 +23,11 @@ const disabled = function (form, classMask, disabledStatus) {
   }
 };
 
-const disabledPage = function(disabledStatus) {
+const toggleActiveStatus = function(disabledStatus) {
   const createAdsForm = document.querySelector(`.${formsClass.createAdsFormClass}`);
   const mapForm = document.querySelector(`.${formsClass.mapFormClass}`);
   disabled(createAdsForm,formsClass.createAdsFormClass, disabledStatus);
   disabled(mapForm, formsClass.mapFormClass, disabledStatus);
 };
 
-export {disabledPage};
+export {toggleActiveStatus};
