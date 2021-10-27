@@ -7,19 +7,12 @@ const formsClass = {
 
 const disabled = function (form, classMask, disabledStatus) {
   const key = disabledStatus ? 'setAttribute' : 'removeAttribute';
-  const fieldsets = form.querySelectorAll('fieldset');
-  const setfields = form.children;
-  [...setfields].some((element) => {
-    const tagName = element.tagName;
-    if (tagName === 'SELECT') {
-      element[key]('disabled', true);
-    }
-  });
-  [...fieldsets].forEach((element) => {
+  const fields = form.children;
+  [...fields].forEach((element) => {
     element[key]('disabled', true);
   });
   if (disabledStatus) {
-    form.classList.toggle(`${classMask}--disabled`);
+    // form.classList.toggle(`${classMask}--disabled`);
   }
 };
 
