@@ -11,9 +11,7 @@ const disabled = function (form, classMask, disabledStatus) {
   [...fields].forEach((element) => {
     element[key]('disabled', true);
   });
-  if (disabledStatus) {
-    form.classList.toggle(`${classMask}--disabled`);
-  }
+  form.classList.toggle(`${classMask}--disabled`, disabledStatus);
 };
 
 const toggleActiveStatus = function(disabledStatus) {
