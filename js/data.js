@@ -68,9 +68,9 @@ const getRandomAppartmentsData = function () {
   };
 };
 
-const generateAppartmentData = function() {
+const generateAppartmentData = function(amount) {
   const appartmentsArray = [];
-  for (let it = 0; it < 1; it++) {
+  for (let i = 0; i < amount; i++) {
     appartmentsArray.push(getRandomAppartmentsData());
   }
   return appartmentsArray;

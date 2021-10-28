@@ -59,7 +59,7 @@ const checkNodeAvailable = (template, tagName) => {
 const getNodesFromTempate = function(template, elements) {
   const nodes = {};
   for (const key in elements) {
-    nodes[key] = checkNodeAvailable(template, elements[key]); // нужно отвязать от конкретного объекта, передав параметр
+    nodes[key] = checkNodeAvailable(template, elements[key]);
   }
   return nodes;
 };
