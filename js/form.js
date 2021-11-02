@@ -5,6 +5,22 @@ const formsClass = {
   mapFormClass: 'map__filters',
 };
 
+const minPriceByHouse = {
+  palace: '10000',
+  flat: '1000',
+  house: '5000',
+  bungalow: '0',
+  hotel: '3000',
+};
+
+const amountPlaceByRoom = {
+  1: ['1'],
+  2: ['1', '2'],
+  3: ['1', '2', '3'],
+  100: '0',
+};
+
+const INITIAL_MINIMUM_PRICE = 1000;
 const selectTypeOfAppartment = document.querySelector('#type');
 const minPriceField = document.querySelector('#price');
 const selectNumberOfRoom = document.querySelector('#room_number');
@@ -27,99 +43,57 @@ const toggleActiveStatus = function(disabledStatus) {
   disabled(mapForm, formsClass.mapFormClass, disabledStatus);
 };
 
-const changeMinPriceHandler = function (evt) {
-  switch (evt.target.value) {
-    case ('palace'):
-      minPriceField.placeholder = 10000;
-      minPriceField.min = 10000;
-      break;
-    case ('flat'):
-      minPriceField.placeholder = 1000;
-      minPriceField.min = 1000;
-      break;
-    case ('house'):
-      minPriceField.placeholder = 5000;
-      minPriceField.min = 5000;
-      break;
-    case ('bungalow'):
-      minPriceField.placeholder = 0;
-      minPriceField.min = 0;
-      break;
-    case ('hotel'):
-      minPriceField.placeholder = 3000;
-      minPriceField.min = 3000;
-      break;
-    default:
-      minPriceField.placeholder = 0;
-      minPriceField.min = 0;
-  }
+const changeMinPriceHandler = function (value) {
+  minPriceField.placeholder = value;
+  minPriceField.min = value;
 };
 
 const setMinPrice = function () {
-  minPriceField.min = 1000;
+  minPriceField.min = INITIAL_MINIMUM_PRICE;
   selectTypeOfAppartment.addEventListener('change', (evt) => {
-    changeMinPriceHandler(evt);
+    const houseType = evt.target.value;
+    const minimalPrice = minPriceByHouse[houseType];
+    if (!minimalPrice) {
+      throw Error('unknown type');
+    }
+    changeMinPriceHandler(minimalPrice);
   });
 };
 
-const changeNumberAvailableGuests = function(evt) {
-  optionsOfCapacity.forEach((element) => {
-    element.disabled = true;
+function setOptionDisabledStatus(select, flag) {
+  select.forEach((element) => {
+    element.disabled = flag;
   });
-  switch (evt.target.value) {
-    case ('1'):
-      optionsOfCapacity.forEach((element) => {
-        if (element.value === '1') {
-          element.disabled = false;
-          element.selected = true;
-        }
-      });
-      break;
-    case ('2'):
-      optionsOfCapacity.forEach((element) => {
-        if (element.value <= '2' && element.value !== '0') {
-          element.disabled = false;
-          if(element.value === '2') {
-            element.selected = true;
-          }
-        }
-      });
-      break;
-    case ('3'):
-      optionsOfCapacity.forEach((element) => {
-        if (element.value <= '3' && element.value !== '0') {
-          element.disabled = false;
-          if(element.value === '3') {
-            element.selected = true;
-          }
-        }
-      });
-      break;
-    case ('100'):
-      optionsOfCapacity.forEach((element) => {
-        if (element.value === '0') {
-          element.disabled = false;
-          element.selected = true;
-        }
-      });
-      break;
+}
+
+function setOptionActivateByValue(select, value) {
+  select.forEach((element) => {
+    [...value].forEach((guests) => {
+      if(element.value === guests) {
+        element.disabled = false;
+        element.selected = true;
+      }
+    });
+  });
+}
+
+const setInitialCapacity = function () {
+  setOptionDisabledStatus(optionsOfCapacity, true);
+  setOptionActivateByValue(optionsOfCapacity, '1');
+};
+
+selectNumberOfRoom.addEventListener('change', (evt) => {
+  const value = evt.target.value;
+  const placeCount = amountPlaceByRoom[value];
+  if (!placeCount) {
+    throw Error ('unknown place count');
   }
-};
-const setCapacity = function () {
-  optionsOfCapacity.forEach((element) => {
-    element.disabled = true;
-    if (element.value === '1') {
-      element.disabled = false;
-      element.selected = true;
-    }
-  });
-  selectNumberOfRoom.addEventListener('change', (evt) => {
-    changeNumberAvailableGuests(evt);
-  });
-};
+  setOptionDisabledStatus(optionsOfCapacity, true);
+  setOptionActivateByValue(optionsOfCapacity, placeCount);
+});
 
 setMinPrice();
-setCapacity();
+setInitialCapacity();
 
 
 export {toggleActiveStatus};
