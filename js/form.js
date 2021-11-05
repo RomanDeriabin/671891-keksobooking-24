@@ -48,7 +48,7 @@ const toggleActiveStatus = function(disabledStatus) {
   disabled(mapForm, formsClass.mapFormClass, disabledStatus);
 };
 
-const fieldValidityHandler = function (element, minlength, maxlength) {
+const fieldValidityLengthHandler = function (element, minlength, maxlength) {
   element.addEventListener('input', () => {
     const valueLength = element.value.length;
 
@@ -65,7 +65,22 @@ const fieldValidityHandler = function (element, minlength, maxlength) {
   });
 };
 
-fieldValidityHandler(titleField, MIN_TITLE_LENGTH, MAX_TITLE_LENGTH);
+const fieldMaxNumberValidityHandler = function (element, maxNumber) {
+  element.addEventListener('input', () => {
+    const valueLength = element.value;
+    if (valueLength > maxNumber) {
+      element.setCustomValidity(`Цена не может быть больше ${maxNumber} руб. за ночь`);
+    }
+    else {
+      element.setCustomValidity('');
+    }
+    element.reportValidity();
+  });
+};
+
+fieldValidityLengthHandler(titleField, MIN_TITLE_LENGTH, MAX_TITLE_LENGTH);
+
+fieldMaxNumberValidityHandler(minPriceField, '1000000');
 
 const changeMinPriceHandler = function (value) {
   minPriceField.placeholder = value;
