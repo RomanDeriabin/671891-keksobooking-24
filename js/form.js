@@ -20,12 +20,6 @@ const amountPlaceByRoom = {
   100: ['0'],
 };
 
-const checkInCheckOut = {
-  '12:00':'12:00',
-  '13:00':'13:00',
-  '14:00':'14:00',
-};
-
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 
@@ -138,18 +132,16 @@ selectNumberOfRoom.addEventListener('change', (evt) => {
   setOptionActivateByValue(optionsOfCapacity, placeCount);
 });
 
-checkInField.addEventListener('change', (evt) => {
-  const value = evt.target.value;
-  checkOutField.value = value;
-});
+const setCheckinCheckout = function(selectedField, synchField) {
+  selectedField.addEventListener('change', (evt) => {
+    const value = evt.target.value;
+    synchField.value = value;
+  });
+};
 
-checkOutField.addEventListener('change', (evt) => {
-  const value = evt.target.value;
-  checkInField.value = value;
-});
-
+setCheckinCheckout(checkInField, checkOutField);
+setCheckinCheckout(checkOutField, checkInField);
 setMinPrice();
 setInitialCapacity();
-
 
 export {toggleActiveStatus};
