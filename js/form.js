@@ -24,6 +24,7 @@ const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 
 const INITIAL_MINIMUM_PRICE = 1000;
+const MAX_PRICE = 1000000;
 
 const selectTypeOfAppartment = document.querySelector('#type');
 const minPriceField = document.querySelector('#price');
@@ -81,7 +82,7 @@ const fieldMaxNumberValidityHandler = function (element, maxNumber) {
 
 fieldValidityLengthHandler(titleField, MIN_TITLE_LENGTH, MAX_TITLE_LENGTH);
 
-fieldMaxNumberValidityHandler(minPriceField, 1000000);
+fieldMaxNumberValidityHandler(minPriceField, MAX_PRICE);
 
 const changeMinPriceHandler = function (value) {
   minPriceField.placeholder = value;
