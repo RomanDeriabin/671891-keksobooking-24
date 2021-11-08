@@ -24,6 +24,7 @@ const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 
 const INITIAL_MINIMUM_PRICE = 1000;
+const MAX_PRICE = 1000000;
 
 const selectTypeOfAppartment = document.querySelector('#type');
 const minPriceField = document.querySelector('#price');
@@ -31,6 +32,8 @@ const selectNumberOfRoom = document.querySelector('#room_number');
 const selectCapacity = document.querySelector('#capacity');
 const optionsOfCapacity = selectCapacity.querySelectorAll('option');
 const titleField = document.querySelector('#title');
+const checkInField = document.querySelector('#timein');
+const checkOutField = document.querySelector('#timeout');
 
 const disabled = function (form, classMask, disabledStatus) {
   const key = disabledStatus ? 'setAttribute' : 'removeAttribute';
@@ -51,7 +54,6 @@ const toggleActiveStatus = function(disabledStatus) {
 const fieldValidityLengthHandler = function (element, minlength, maxlength) {
   element.addEventListener('input', () => {
     const valueLength = element.value.length;
-
     if (valueLength < minlength) {
       element.setCustomValidity(`Еще ${minlength - valueLength} символов`);
     }
@@ -67,8 +69,8 @@ const fieldValidityLengthHandler = function (element, minlength, maxlength) {
 
 const fieldMaxNumberValidityHandler = function (element, maxNumber) {
   element.addEventListener('input', () => {
-    const valueLength = element.value;
-    if (valueLength > maxNumber) {
+    const value = Number(element.value);
+    if (value > maxNumber) {
       element.setCustomValidity(`Цена не может быть больше ${maxNumber} руб. за ночь`);
     }
     else {
@@ -80,7 +82,7 @@ const fieldMaxNumberValidityHandler = function (element, maxNumber) {
 
 fieldValidityLengthHandler(titleField, MIN_TITLE_LENGTH, MAX_TITLE_LENGTH);
 
-fieldMaxNumberValidityHandler(minPriceField, '1000000');
+fieldMaxNumberValidityHandler(minPriceField, MAX_PRICE);
 
 const changeMinPriceHandler = function (value) {
   minPriceField.placeholder = value;
@@ -131,8 +133,16 @@ selectNumberOfRoom.addEventListener('change', (evt) => {
   setOptionActivateByValue(optionsOfCapacity, placeCount);
 });
 
+const setCheckinCheckout = function(selectedField, synchField) {
+  selectedField.addEventListener('change', (evt) => {
+    const value = evt.target.value;
+    synchField.value = value;
+  });
+};
+
+setCheckinCheckout(checkInField, checkOutField);
+setCheckinCheckout(checkOutField, checkInField);
 setMinPrice();
 setInitialCapacity();
-
 
 export {toggleActiveStatus};
