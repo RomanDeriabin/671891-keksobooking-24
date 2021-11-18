@@ -1,5 +1,7 @@
 'use sctrict';
 
+import { mainPinMarker, TOKIO_CENTER } from './map.js';
+
 const formsClass = {
   createAdsFormClass: 'ad-form',
   mapFormClass: 'map__filters',
@@ -34,6 +36,7 @@ const optionsOfCapacity = selectCapacity.querySelectorAll('option');
 const titleField = document.querySelector('#title');
 const checkInField = document.querySelector('#timein');
 const checkOutField = document.querySelector('#timeout');
+const addressField = document.querySelector('#address');
 
 const disabled = function (form, classMask, disabledStatus) {
   const key = disabledStatus ? 'setAttribute' : 'removeAttribute';
@@ -140,6 +143,23 @@ const setCheckinCheckout = function(selectedField, synchField) {
   });
 };
 
+const setAddress = (value) => {
+  addressField.value = value;
+};
+
+const setInitialAddress = function(){
+  const initialAddress = `${TOKIO_CENTER.lat.toFixed(5)}, ${TOKIO_CENTER.lng.toFixed(5)} `;
+  addressField.readOnly = 'readonly';
+  setAddress(initialAddress);
+};
+
+mainPinMarker.on('moveend', (evt) => {
+  const lat = 'lat';
+  const lng = 'lng';
+  setAddress (`${evt.target.getLatLng()[lat].toFixed(5)}, ${evt.target.getLatLng()[lng].toFixed(5)}`);
+});
+
+setInitialAddress();
 setCheckinCheckout(checkInField, checkOutField);
 setCheckinCheckout(checkOutField, checkInField);
 setMinPrice();

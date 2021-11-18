@@ -1,15 +1,13 @@
 'use sctrict';
 
-import {renderAds} from './render.js';
-import {generateAppartmentData} from './data.js';
 import { toggleActiveStatus } from './form.js';
+// import { renderAds } from './render.js';
+import {activateMap} from './map.js';
 
-const map = document.querySelector('#map-canvas');
+// const map = document.querySelector('#map-canvas');
 
-const dataCount = 1;
+// const [firstElement] = arrayOfAppartments;
 
-const arrayOfAppartments = generateAppartmentData(dataCount);
-const [firstElement] = arrayOfAppartments;
-
-renderAds(firstElement, map);
-toggleActiveStatus(false);
+// renderAds(firstElement, map);
+toggleActiveStatus(true);
+activateMap();
